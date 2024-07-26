@@ -1,0 +1,211 @@
+.navbar{
+    display:flex;
+    justify-content: space-around;
+    padding: 16px;
+    box-shadow: 0 1px 3px -2px black;
+    align-items: center;
+}
+
+.nav-logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo p{
+    color: #171717;
+    font-size: 38px;
+    font-weight: 600;
+}
+
+.nav-menu{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 50px;
+    color: #626262;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.nav-menu li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.nav-menu hr{
+    border: none;
+    width: 80%;
+    height: 3px;
+    border-radius: 10px;
+    background: #FF4141;
+}
+
+.nav-login-cart{
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+.nav-login-cart button{
+    width: 157px;
+    height: 58px;
+    outline: none;
+    border:1px solid #7a7a7a;
+    border-radius: 75px;
+    color: #515151;
+    font-size: 20px;
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+}
+
+.nav-login-cart button:active{
+    background: #f3f3f3;
+}
+
+/* Here we create new div and use margin-top: -35px and margin-left: -55px 
+to add count of item cart on top of cart icon */
+
+.nav-cart-count{
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -35px; 
+    margin-left: -55px;
+    border-radius: 11px;
+    background:red;
+    color: white;
+}
+
+/* This is dropdown icon and it is not visible now but when our screen size < 800px then we will show this icon using display:block  */
+.nav-dropdown{
+    display:none;
+}
+
+/* Media Queries */
+
+/* 1. max-width : 1280 */
+
+@media(max-width : 1280px){
+
+    .navbar{
+        padding: 12px 50px;
+    }
+    .nav-logo img{
+        width: 40px;
+    }
+    .nav-logo p{
+        font-size: 25px;
+    }
+    .nav-menu{
+        gap: 30px;
+        font-size: 16px;
+    }
+    .nav-login-cart{
+        gap: 30px;
+    }
+    .nav-login-cart button{
+        Width: 120px;
+        height: 45px;
+        font-size: 16px;
+    }
+    .nav-cart-count{
+        margin-left: -40px;
+        font-size: 12px;
+    }
+}
+
+/* max-width : 1024px */
+
+@media(max-width:1024px){
+    .navbar{
+        padding: 12px 30px;
+    }
+    .nav-menu{
+        gap: 25px;
+        font-size: 14px;
+    }
+    .nav-login-cart button{
+        width: 60px;
+        height: 35px;
+        font-size: 14px;
+    }
+    .nav-login-cart img{
+        width: 30px;
+    }
+    .nav-cart-count{
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* max-width : 800px */
+
+/* Here we will not showing the navbar directly Here we will use dropdown List.
+So initially till size > 800px its hidden (i.e. display:none)
+But Here we will make it visible (i.e. display:block)
+and hide original navbar using (display:none) */
+@media(max-width:800px){
+    .navbar{
+        padding: 10px 0px;
+    }
+
+    /* New dropdown navbar using display:block */
+    .nav-dropdown{
+        display: block;
+        width: 30px;
+        rotate: -90deg;
+        transition: 0.5s;
+    }
+
+    /* Original navbar will hide here using display:none  */
+    .nav-menu{
+        display: none;
+        height: 80px;
+        width: 100x;
+        position: absolute;
+        background-color:
+        white;
+        justify-content: center;
+        top: 50px;
+    }
+
+    /* When we click on dropDown icon original navbar visible to us*/
+    .nav-menu-visible{
+        display: flex; 
+      
+    }
+    .nav-dropdown.open{
+        transform: rotate(90deg);
+    }   
+}
+
+/* max-width : 500px */
+
+@media(max-width:500px){
+    .navbar{
+        padding: 8px 0px;
+        gap: 0;
+    }
+    .nav-logo{
+        transform: scale(0.8);
+    }
+    .nav-menu{
+        height: 70px;
+        top: 50px;
+    }
+    .nav-login-cart{
+        transform: scale(0.8);
+    }
+}
