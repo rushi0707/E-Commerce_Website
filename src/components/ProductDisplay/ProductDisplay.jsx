@@ -14,45 +14,47 @@ import { useContext } from 'react';
 import './ProductDisplay.css';
 import { ShopContext } from '../../context/ShopContext';
 
-function ProductDisplay({product}){
+function ProductDisplay({ product = {} }) {
+    let { addToCart } = useContext(ShopContext);
 
-    let {addToCart}=useContext(ShopContext);
+    // Destructure with default values to avoid undefined errors
+    const { image = '', name = 'Product Name', old_price = 0, new_price = 0 ,seller_name='' , contact='' } = product;
 
     return (
         <div className='productdisplay'>
             <div className="productdisplay-left">
                 <div className="productdisplay-img-list">
-                    <img src={product.image} alt="" />
-                    <img src={product.image} alt="" />
-                    <img src={product.image} alt="" />
-                    <img src={product.image} alt="" />
+                    <img src={image} alt={name} />
+                    <img src={image} alt={name} />
+                    <img src={image} alt={name} />
+                    <img src={image} alt={name} />
                 </div>
                 <div className="productdisplay-img">
-                    <img className="productdisplay-main-img" src={product.image} alt="" />
+                    <img className="productdisplay-main-img" src={image} alt={name} />
                 </div>
             </div>
             <div className="productdisplay-right">
-                <h1>{product.name}</h1>
-            
+                <h1>{name}</h1>
                 <div className="productdisplay-right-prices">
                     <div className="productdisplay-right-price-old">
-                        ${product.old_price}
+                        ${old_price}
                     </div>
                     <div className="productdisplay-right-price-new">
-                        ${product.new_price}
+                        ${new_price}
                     </div>
                 </div>
                 <div className="productdisplay-right-description">
-                    A lightweight, usually knitted, pullover shirt close-fitting and a round neckline and short sleeves, worn as an undershirt or outer garment.
+                   Seller : {seller_name}
                 </div>
-                <button onClick={()=>addToCart(product.id)}>
+                <div className="productdisplay-right-description">
+                   Contact : {contact}
+                </div>
+                <button onClick={() => addToCart(product.id)}>
                     ADD TO CART
                 </button>
-                    
             </div>
-
-</div>
-    )
+        </div>
+    );
 }
 
 export default ProductDisplay;

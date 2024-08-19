@@ -8,6 +8,7 @@
 }
 
 
+
 .hero-left{
     flex: 1; 
 
@@ -20,6 +21,18 @@
     gap: 20px;
     padding-left: 180px;
     line-height: 1.1;
+}
+#th{
+    color: rgb(237, 48, 48);
+}
+#first 
+{
+    color: rgb(237, 48, 48);
+}
+
+#second 
+{
+    color: black;
 }
 
 .hero-left h2{
@@ -38,6 +51,10 @@
     display: flex;
     align-items: center;
     gap:20px;
+    
+}
+.hero-hand-icon p {
+    color: black;
 }
 
 .hero-hand-icon img{

@@ -41,7 +41,7 @@ function Navbar(){
         <div className="navbar">
             <div className="nav-logo">
                 <img src={logo} alt="" />
-                <p>FashionFlare</p>
+                <p>ReuseHub</p>
             </div>
 
             <img  className='nav-dropdown' onClick={dropdown} src={nav_dropdown} alt="" />
@@ -51,27 +51,36 @@ function Navbar(){
                         Shop {menu==="shop" ? <hr/> :<></>} 
                     </Link>
                 </li>
-                <li onClick={()=>{setMenu("men")}}>
-                    <Link to='/men' className='link'> 
-                        Men  {menu==="men" ? <hr/> : <></>}
+                <li onClick={()=>{setMenu("electronics")}}>
+                    <Link to='/electronics' className='link'> 
+                    Electronics  {menu==="electronics" ? <hr/> : <></>}
                     </Link>
                 </li>
-                <li onClick={()=>{setMenu("women")}}> 
-                    <Link to='/women' className='link'> 
-                        Women {menu==="women" ? <hr/> : <></>}
+                <li onClick={()=>{setMenu("appliances")}}> 
+                    <Link to='/appliances' className='link'> 
+                    Appliances {menu==="appliances" ? <hr/> : <></>}
                     </Link>
                 </li>
-                <li onClick={()=>{setMenu("kid")}}>
-                    <Link to='/kid' className='link'> 
-                        Kids {menu==="kid" ? <hr/> : <></>} 
+                <li onClick={()=>{setMenu("sports")}}>
+                    <Link to='/sports' className='link'> 
+                    Sports Equipment {menu==="sports" ? <hr/> : <></>} 
+                    </Link>
+                </li>
+                <li onClick={()=>{setMenu("others")}}>
+                    <Link to='/others' className='link'> 
+                    Others {menu==="others" ? <hr/> : <></>} 
                     </Link>
                 </li>
             </ul>
 
             <div className="nav-login-cart">
-                <Link to='/login' ><button>Login</button></Link>
+                {localStorage.getItem('auth-token')?
+                <button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
+                :<Link to='/login' ><button>Login</button></Link>}
+                
                 <Link to='/cart'><img src={cart_icon} alt="" /></Link>
                 <div className="nav-cart-count">{getTotalCartItems()}</div>
+
             </div>
         </div>
     );

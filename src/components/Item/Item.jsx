@@ -31,11 +31,24 @@ function Item(props){
             </Link>
             <p>{props.name}</p>
             <div className="item-prices">
-                <div className="item-price-new">
-                    ${props.new_price}
+                <div className="item-price-new" id='s'>
+                ₹ {props.new_price}
                 </div>
                 <div className="item-price-old">
-                    ${props.old_price}
+                ₹ {props.old_price}
+                </div>
+            </div>
+            <div className="item-prices">
+                <div className="item-new"  id='f'>
+                    seller :  
+                     {props.seller_name}
+                </div>
+                
+            </div>
+            <div className="item-prices" >
+                <div className="item-new"  >
+                    contact :  
+                     {props.contact}
                 </div>
             </div>
         </div>

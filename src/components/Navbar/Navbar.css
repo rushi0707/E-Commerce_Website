@@ -133,7 +133,7 @@ to add count of item cart on top of cart icon */
         padding: 12px 30px;
     }
     .nav-menu{
-        gap: 25px;
+        padding: 0px 14px;
         font-size: 14px;
     }
     .nav-login-cart button{
@@ -202,8 +202,10 @@ and hide original navbar using (display:none) */
         transform: scale(0.8);
     }
     .nav-menu{
-        height: 70px;
+        height: 60px;
         top: 50px;
+        font-size: 10px;
+        padding: 0px 10px;
     }
     .nav-login-cart{
         transform: scale(0.8);

@@ -31,8 +31,8 @@ function CartItems(){
                 <p>Products</p>
                 <p>Title</p>
                 <p>Price</p>
-                <p>Quantity</p>
-                <p>Total</p>
+                <p>Seller</p>
+                <p>Contact</p>
                 <p>Remove</p>
             </div>
             <hr />
@@ -45,8 +45,8 @@ function CartItems(){
                         <img src={item.image} alt="" className=' carticon-product-icon' />
                         <p>{item.name}</p>
                         <p>${item.new_price}</p>
-                        <button className=' cartitems-quantity' >{cartItems[item.id]}</button>
-                        <p>${item.new_price*cartItems[item.id]}</p>
+                        <p>{item.seller_name}</p>
+                        <p>{item.contact}</p>
                         <img src={remove_icon} onClick={()=>{removeFromCart(item.id)}} className="cartitems-remove-icon" alt=""/>
                     </div>
                     <hr />

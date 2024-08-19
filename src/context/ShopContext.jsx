@@ -27,9 +27,11 @@
     step.3--> wrap it in main.jsx on entire App using provider
     step.4--> consume it in Shopcategory.jsx
 */
+/*
+    Here we fetch all product data directly from Databse using /allproducts API  
+*/
 
-import { createContext, useState } from "react";
-import all_product from '../components/assets/all_product';
+import { createContext, useEffect, useState } from "react";
 
 // step.1--> create Context
 export const ShopContext = createContext(null);
@@ -37,7 +39,7 @@ export const ShopContext = createContext(null);
 function setDefaultCart(){
 
     let cart={};
-    for(let i=0;i<all_product.length+1;i++){
+    for(let i=0;i<300+1;i++){
         cart[i]=0;
     }
     return cart;
@@ -46,18 +48,118 @@ function setDefaultCart(){
 // step.2-->create provider with name ShopContextProvider and pass all_prod data to context
 function ShopContextProvider({children}){
 
+    // state which stores all_product data fetch from API  /allproducts.
+    let [all_product,setAll_Product] = useState([]);
+    // state for cartItms
     let [cartItems,setCartItems]=useState(setDefaultCart());
 
-    function addToCart(itemId){
+    // Here we fetch all product data directly from Databse using /allproducts API 
+    // And Here we also fetch cart data for perticular user that currently loged in 
+    useEffect(()=>{
 
-        let newCart={...cartItems,[itemId]:cartItems[itemId]+1};
-        setCartItems(newCart);
+        fetch('http://localhost:4000/allproducts').then((response)=>response.json()).then((data)=>setAll_Product(data))
+
+        const authToken = localStorage.getItem('auth-token');
+        if (authToken) {
+            // Perform the fetch request to add item to the server-side cart
+            fetch('http://localhost:4000/getcart', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json', // Correct header for expected JSON response
+                    'auth-token': authToken,
+                    'Content-Type': 'application/json',
+                },
+                body: "",
+            })
+            .then((res) => res.json())
+            .then((data) =>setCartItems(data))
+            
+        }
+
+    },[])
+
+    // first check which user currently login then fetch data using /addtocart API declraed in index.js and then store item in cart 
+    function addToCart(itemId) {
+        // Update cart items locally
+        setCartItems((prev) => {
+            // Check if the item is already in the cart
+            if (prev[itemId]) {
+                return prev; // If it exists, return the current state without changes
+            }
+            return {
+                ...prev,
+                [itemId]: 1, // Add the item with a quantity of 1
+            };
+        });
+    
+        // Check for auth token in local storage
+        const authToken = localStorage.getItem('auth-token');
+        if (authToken) {
+            // Perform the fetch request to add item to the server-side cart
+            fetch('http://localhost:4000/addtocart', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json', // Correct header for expected JSON response
+                    'auth-token': authToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ itemId }),
+            })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+                // Optionally, handle server response data here
+            })
+            .catch((error) => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        } else {
+            console.warn('No auth token found in local storage');
+            // Optionally, redirect to login or notify the user
+        }
     }
+    
 
     function removeFromCart(itemId){
 
         let newCart={...cartItems,[itemId]:cartItems[itemId]-1};
         setCartItems(newCart);
+
+        const authToken = localStorage.getItem('auth-token');
+        if (authToken) {
+            // Perform the fetch request to add item to the server-side cart
+            fetch('http://localhost:4000/removefromcart', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json', // Correct header for expected JSON response
+                    'auth-token': authToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ itemId }),
+            })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+                // Optionally, handle server response data here
+            })
+            .catch((error) => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        } else {
+            console.warn('No auth token found in local storage');
+            // Optionally, redirect to login or notify the user
+        }
+
     }
 
     function getTotalCartAmout(){

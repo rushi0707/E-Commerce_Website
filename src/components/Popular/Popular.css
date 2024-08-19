@@ -5,6 +5,8 @@
     align-items: center;
     gap: 10px;
     height:90vh; /* vh viewport height i.e. here it will get 90% of total browser heigh */
+    padding: 30px;
+    margin: 20px;
 }
 
 .popular h1{

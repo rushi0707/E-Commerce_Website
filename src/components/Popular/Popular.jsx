@@ -1,8 +1,7 @@
 /*
     This Component is below the hero component in shop page (Home page).
 
-    Here we use data.json file which have record of some products such as image,name,price.
-    we pass this data as prop to create items to Item component.
+   Here we fetch data from API  and uses recently added 8 ele and show them
 
     eg--> 
     {
@@ -19,19 +18,27 @@
 */
 
 import './Popular.css';
-import data_product from '../assets/data';
 import Item from '../Item/Item';
+import { useEffect, useState } from 'react';
 
 function Popular(){
 
+    const [new_collection,setNew_collection] = useState([]);
+    /* Here we fetch data from database using /newcollections API */
+    useEffect(()=>{
+        fetch('http://localhost:4000/newcollections')
+        .then((response)=>response.json())
+        .then((data)=>setNew_collection(data));
+    },[])
+
     return (
         <div className="popular">
-            <h1>Popular In Women</h1>
+            <h1>New Collection</h1>
             <hr />
             <div className="popular-item">
 
-                {data_product.map((item,i)=>{
-                    return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price}></Item>
+                {new_collection.map((item,i)=>{
+                    return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price} seller_name={item.seller_name} contact={item.contact}></Item>
                 })}
                 
             </div>

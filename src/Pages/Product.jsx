@@ -33,7 +33,6 @@ function Product(){
 
     return <div>
         <ProductDisplay product={product}></ProductDisplay>
-        <RelatedProducts></RelatedProducts>
     </div>
 }
 
